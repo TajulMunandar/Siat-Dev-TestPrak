@@ -59,36 +59,44 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'captcha' => 'required|same:captcha',
-            'nama' => 'required|string',
-            'nik' => 'required|string|max:16',
-            'tanggal_lahir' => 'required|date',
-            'tempat_lahir' => 'required|string',
-            'jk' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'desa' => 'required',
-            'email' => 'required|string|unique:forms',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        try {
+            // Validate incoming request data
+            $request->validate([
+                'captcha' => 'required|same:captcha',
+                'nama' => 'required|string',
+                'nik' => 'required|string|max:16',
+                'tanggal_lahir' => 'required|date',
+                'tempat_lahir' => 'required|string',
+                'jk' => 'required',
+                'provinsi' => 'required',
+                'kabupaten' => 'required',
+                'kecamatan' => 'required',
+                'desa' => 'required',
+                'email' => 'required|string|unique:forms',
+                'password' => 'required|min:6|confirmed',
+            ]);
 
-        Form::create([
-            'nama' => $request->nama,
-            'nik' => $request->nik,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'tempat_lahir' => $request->tempat_lahir,
-            'jk' => $request->jk,
-            'provinsi' => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'kecamatan' => $request->kecamatan,
-            'desa' => $request->desa,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+            // Create a new Form record
+            Form::create([
+                'nama' => $request->nama,
+                'nik' => $request->nik,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'tempat_lahir' => $request->tempat_lahir,
+                'jk' => $request->jk,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'desa' => $request->desa,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
 
-        return redirect()->back()->with('success', 'Form Telah di isi berhasil ditambahkan!');
+            // Return success message
+            return redirect()->back()->with('success', 'Form Telah di isi berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            // Handle any exception that may occur
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**

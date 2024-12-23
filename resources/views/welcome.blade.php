@@ -16,6 +16,23 @@
 
 <body class="bg-light">
     <!-- container -->
+    <div class="row mt-3">
+        <div class="col">
+            @if (session()->has('success'))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
+    </div>
     <div class="container d-flex flex-column my-5">
         <div class="row align-items-center justify-content-center g-0
         min-vh-100">
@@ -61,7 +78,7 @@
                             <div class="mb-3">
                                 <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                                 <input type="date" id="tanggal_lahir" class="form-control" name="tanggal_lahir"
-                                    placeholder="User Name" required="">
+                                    required pattern="([0-2][0-9]|(3)[0-1])-(0[1-9]|1[0-2])-\d{4}">
                                 @error('tanggal_lahir')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -170,6 +187,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#tanggal_lahir", {
+            dateFormat: "d-m-Y", // Set date format to dd-mm-yyyy
+            allowInput: true, // Allow users to input manually
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
