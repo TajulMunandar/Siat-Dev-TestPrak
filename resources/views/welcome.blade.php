@@ -78,7 +78,7 @@
                             <div class="mb-3">
                                 <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                                 <input type="date" id="tanggal_lahir" class="form-control" name="tanggal_lahir"
-                                    required pattern="([0-2][0-9]|(3)[0-1])-(0[1-9]|1[0-2])-\d{4}">
+                                    required>
                                 @error('tanggal_lahir')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -188,19 +188,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        flatpickr("#tanggal_lahir", {
-            dateFormat: "d-m-Y", // Set date format to dd-mm-yyyy
-            allowInput: true, // Allow users to input manually
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
             // Inisialisasi Select2
             $('.select2').select2();
-
 
         });
     </script>
